@@ -1,3 +1,12 @@
+libxrender (1:0.9.10-1deepin1) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-88807 (high) - Check numSubpixel against
+    numScreens to avoid OOB writes (CVE-2026-88807)   Upstream:
+    https://gitlab.freedesktop.org/xorg/lib/libxrender/-
+    /merge_requests/19.patch
+
+ -- deepin-ci-robot <packages@deepin.org>  Wed, 23 Sep 2026 16:31:54 +0800
+
 libxrender (1:0.9.10-1) unstable; urgency=medium
 
   [ Andreas Boll ]
