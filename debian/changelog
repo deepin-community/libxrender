@@ -1,3 +1,16 @@
+libxrender (1:0.9.10-1deepin2) unstable; urgency=medium
+
+  * Fix FTBFS with libx11 >= 1.8.12: add the missing trailing
+    semicolons after the BufAlloc() calls in src/Glyph.c
+    (upstream commit 6663858e, upstream MR 14)
+    - libx11 1.8.12 defines BufAlloc as "do { ... } while (0)", so the
+      trailing semicolon is mandatory; these 3 outliers relied on the
+      old bare-statement macro ending with its own semicolon
+    - Without the fix the build aborts with:
+      src/Glyph.c:481:13: error: expected ';' before 'elt'
+
+ -- lichenggang <lichenggang@uniontech.com>  Thu, 15 Oct 2026 21:16:08 +0800
+
 libxrender (1:0.9.10-1deepin1) unstable; urgency=medium
 
   * fix(cve): CVE-2026-88807 (high) - Check numSubpixel against

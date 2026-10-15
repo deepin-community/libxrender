@@ -1,1 +1,2 @@
 CVE-2026-88807.patch
+fix-BufAlloc-trailing-semicolon.patch
