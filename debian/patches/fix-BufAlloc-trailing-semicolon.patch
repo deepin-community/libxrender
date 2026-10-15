@@ -1,0 +1,41 @@
+Description: Ensure all BufAlloc calls have trailing semicolon
+ Most of the BufAlloc() calls in src/Glyph.c already ended with a
+ semicolon, this fixes the 3 outliers, so they build with libx11
+ where BufAlloc is defined as "do { ... } while (0)" (libx11 1.8.12
+ and newer, libx11 commit 563ddd4ff5575e3f8bbf635cbdc339b09a7e285e).
+ Without the semicolon gcc fails with:
+  src/Glyph.c:481:13: error: expected ';' before 'elt'
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Origin: https://gitlab.freedesktop.org/xorg/lib/libxrender/-/commit/6663858e918923d02c466298670c992a8437a17b
+Bug: https://gitlab.freedesktop.org/xorg/lib/libxrender/-/merge_requests/14
+Last-Update: 2026-10-15
+---
+--- a/src/Glyph.c
++++ b/src/Glyph.c
+@@ -477,7 +477,7 @@
+ 	{
+ 	    int this_chars = nchars > MAX_8 ? MAX_8 : nchars;
+ 
+-	    BufAlloc (xGlyphElt *, elt, SIZEOF(xGlyphElt))
++	    BufAlloc (xGlyphElt *, elt, SIZEOF (xGlyphElt));
+ 	    elt->len = this_chars;
+ 	    elt->deltax = xDst;
+ 	    elt->deltay = yDst;
+@@ -588,7 +588,7 @@
+ 	    int this_chars = nchars > MAX_16 ? MAX_16 : nchars;
+ 	    int this_bytes = this_chars * 2;
+ 
+-	    BufAlloc (xGlyphElt *, elt, SIZEOF(xGlyphElt))
++	    BufAlloc (xGlyphElt *, elt, SIZEOF (xGlyphElt));
+ 	    elt->len = this_chars;
+ 	    elt->deltax = xDst;
+ 	    elt->deltay = yDst;
+@@ -694,7 +694,7 @@
+ 	{
+ 	    int this_chars = nchars > MAX_32 ? MAX_32 : nchars;
+ 	    int this_bytes = this_chars * 4;
+-	    BufAlloc (xGlyphElt *, elt, SIZEOF(xGlyphElt))
++	    BufAlloc (xGlyphElt *, elt, SIZEOF (xGlyphElt));
+ 	    elt->len = this_chars;
+ 	    elt->deltax = xDst;
+ 	    elt->deltay = yDst;
